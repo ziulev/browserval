@@ -31,11 +31,43 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     statusBarItem = NSStatusBar.system.statusItem(withLength: CGFloat(60))
 
     if let button = self.statusBarItem.button {
-      print("FOO")
       button.action = #selector(togglePopover(_:))
       button.title = "TEST"
     }
+    
+    
+    
+    
+    let em = NSAppleEventManager.shared()
+    em.setEventHandler(
+        self,
+        andSelector: #selector(getUrl(_:withReplyEvent:)),
+        forEventClass: AEEventClass(kInternetEventClass),
+        andEventID: AEEventID(kAEGetURL))
+    
+    
+    let bundleID = Bundle.main.bundleIdentifier as CFString?
+    var httpResult: OSStatus? = nil
+    if let bundleID = bundleID {
+        httpResult = LSSetDefaultHandlerForURLScheme("http" as CFString, bundleID)
+    }
+    var httpsResult: OSStatus? = nil
+    if let bundleID = bundleID {
+        httpsResult = LSSetDefaultHandlerForURLScheme("https" as CFString, bundleID)
+    }
 
+  }
+  
+  @objc func getUrl(
+      _ event: NSAppleEventDescriptor?,
+      withReplyEvent replyEvent: NSAppleEventDescriptor?
+  ) {
+      // Get the URL
+      let urlStr = event?.paramDescriptor(forKeyword: keyDirectObject)?.stringValue
+    
+    print(urlStr)
+
+      //TODO: Your custom URL handling code here
   }
 
   @objc func togglePopover(_ sender: AnyObject?) {
