@@ -10,6 +10,10 @@
 		514201522437B4B40078DB4F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 514201512437B4B40078DB4F /* Assets.xcassets */; };
 		514201552437B4B40078DB4F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 514201532437B4B40078DB4F /* Main.storyboard */; };
 		92221EBE25BA296900B595F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92221EBD25BA296900B595F3 /* AppDelegate.swift */; };
+		929A9F6C25BAC7B100CF4DFB /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929A9F6B25BAC7B100CF4DFB /* URL.swift */; };
+		929A9F6F25BAC7C000CF4DFB /* URL.m in Sources */ = {isa = PBXBuildFile; fileRef = 929A9F6E25BAC7C000CF4DFB /* URL.m */; };
+		929A9F7325BAD80D00CF4DFB /* Panels.m in Sources */ = {isa = PBXBuildFile; fileRef = 929A9F7225BAD80D00CF4DFB /* Panels.m */; };
+		929A9F7725BAD81C00CF4DFB /* Panels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929A9F7625BAD81B00CF4DFB /* Panels.swift */; };
 		F5936F65C9EC51A0A25C35FC /* libPods-Browserval-macOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AAA2E6F07CF89AD0CA905BC /* libPods-Browserval-macOS.a */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +31,10 @@
 		75F3FB86FEF82D78A311A5B7 /* Pods-Browserval-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Browserval-iOS.release.xcconfig"; path = "Target Support Files/Pods-Browserval-iOS/Pods-Browserval-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		92221EBC25BA296900B595F3 /* Browserval-macOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Browserval-macOS-Bridging-Header.h"; sourceTree = "<group>"; };
 		92221EBD25BA296900B595F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		929A9F6B25BAC7B100CF4DFB /* URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
+		929A9F6E25BAC7C000CF4DFB /* URL.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = URL.m; sourceTree = "<group>"; };
+		929A9F7225BAD80D00CF4DFB /* Panels.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Panels.m; sourceTree = "<group>"; };
+		929A9F7625BAD81B00CF4DFB /* Panels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Panels.swift; sourceTree = "<group>"; };
 		9D32DFD059D5DB6DDEF38881 /* Pods-Shared-Browserval-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shared-Browserval-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Shared-Browserval-iOS/Pods-Shared-Browserval-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		9FA2BA6771BBF2FA3D16D819 /* Pods-Browserval-macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Browserval-macOS.debug.xcconfig"; path = "Target Support Files/Pods-Browserval-macOS/Pods-Browserval-macOS.debug.xcconfig"; sourceTree = "<group>"; };
 		A82DFB63B157C65E5D698CA2 /* Pods-Shared-Browserval-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shared-Browserval-iOS.release.xcconfig"; path = "Target Support Files/Pods-Shared-Browserval-iOS/Pods-Shared-Browserval-iOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -77,6 +85,8 @@
 		5142014A2437B4B30078DB4F /* Browserval-macOS */ = {
 			isa = PBXGroup;
 			children = (
+				929A9F7125BAD7FE00CF4DFB /* Panels */,
+				929A9F6525BAC78700CF4DFB /* URL */,
 				38423A3E24576CBC00BC2EAC /* main.jsbundle */,
 				514201512437B4B40078DB4F /* Assets.xcassets */,
 				514201532437B4B40078DB4F /* Main.storyboard */,
@@ -115,6 +125,24 @@
 				514201492437B4B30078DB4F /* Browserval.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		929A9F6525BAC78700CF4DFB /* URL */ = {
+			isa = PBXGroup;
+			children = (
+				929A9F6B25BAC7B100CF4DFB /* URL.swift */,
+				929A9F6E25BAC7C000CF4DFB /* URL.m */,
+			);
+			path = URL;
+			sourceTree = "<group>";
+		};
+		929A9F7125BAD7FE00CF4DFB /* Panels */ = {
+			isa = PBXGroup;
+			children = (
+				929A9F7225BAD80D00CF4DFB /* Panels.m */,
+				929A9F7625BAD81B00CF4DFB /* Panels.swift */,
+			);
+			path = Panels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,7 +298,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				929A9F7725BAD81C00CF4DFB /* Panels.swift in Sources */,
+				929A9F6F25BAC7C000CF4DFB /* URL.m in Sources */,
 				92221EBE25BA296900B595F3 /* AppDelegate.swift in Sources */,
+				929A9F7325BAD80D00CF4DFB /* Panels.m in Sources */,
+				929A9F6C25BAC7B100CF4DFB /* URL.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

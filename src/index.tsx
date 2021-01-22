@@ -1,13 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-
 import React from 'react';
 import {
   SafeAreaView,
@@ -25,8 +15,17 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import { PanelsNative } from './native/panels.native';
+import { URLNative } from './native/url.native';
 
 declare const global: {HermesInternal: null | {}};
+
+const urlNative = new URLNative();
+const panelsNative = new PanelsNative();
+urlNative.onOpen((e) => {
+  console.log('OPEN!!!: ', e);
+  panelsNative.openBrowserval();
+});
 
 const App = () => {
   return (
