@@ -40,7 +40,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       ),
       styleMask: [
         .nonactivatingPanel,
-        .titled,
         .fullSizeContentView,
       ],
       backing: .buffered,
