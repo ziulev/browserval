@@ -3,3 +3,7 @@
 </p>
 
 # Browserval
+
+<p align="center">
+  <img src="/preview/preview.gif?raw=true" alt="" height="400" />
+</p>
