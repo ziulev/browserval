@@ -18,6 +18,25 @@ class URLModule: RCTEventEmitter {
         andEventID: AEEventID(kAEGetURL))
   }
   
+  @available(OSX 10.15, *)
+  @objc
+  func openUrl(_ url: NSString, withAppName appName: NSString) {
+    let link: URL = URL(string: url as String)!
+    do {
+      let safariURL = try FileManager.default.url(
+        for: .applicationDirectory,
+        in: .localDomainMask,
+        appropriateFor: nil,
+        create: false
+      ).appendingPathComponent(appName as String)
+    
+      NSWorkspace.shared.open([link], withApplicationAt: safariURL, configuration: .init()) { (runningApp, error) in
+        print("running app", runningApp ?? "nil")
+      }
+    } catch {
+      print(error)
+    }
+  }
   
   
   @objc func getUrl(
@@ -37,8 +56,17 @@ class URLModule: RCTEventEmitter {
   }
   
   @objc func onOpen(url: String) {
+    let browserUrls = LSCopyApplicationURLsForURL(URL(string: "https:")! as CFURL, .all)?.takeRetainedValue() as? [URL]
+    var browsers: [String] = Array()
+
+    for app in browserUrls! {
+      browsers.append(app.path)
+    }
+    
+    
     let body: NSDictionary = [
-      "url": url
+      "url": url,
+      "browsers": browsers,
     ];
 
     self.sendEvent(withName: Events.onOpen, body: body)

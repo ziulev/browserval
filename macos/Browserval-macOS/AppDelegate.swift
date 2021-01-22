@@ -69,8 +69,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       let mouseLoc: NSPoint = NSEvent.mouseLocation
 //      let x = mouseLoc.x - (CGFloat(self.browservalDimensionsWidth) / 2)
 //      let y = mouseLoc.y - CGFloat(self.browservalDimensionsHeight)
-      let x = mouseLoc.x
-      let y = mouseLoc.y
+      let x = mouseLoc.x - 25
+      let y = mouseLoc.y + 25
       let point: NSPoint = NSPoint(x: x, y: y)
       
       browservalPanel.makeKeyAndOrderFront(nil)

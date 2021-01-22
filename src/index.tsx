@@ -1,117 +1,68 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
   View,
-  Text,
-  StatusBar,
+  TouchableOpacity,
 } from 'react-native';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 import { PanelsNative } from './native/panels.native';
+import { Icon } from './native/ui/icon.native';
+import { NSView } from './native/ui/view.native';
 import { URLNative } from './native/url.native';
-
-declare const global: {HermesInternal: null | {}};
 
 const urlNative = new URLNative();
 const panelsNative = new PanelsNative();
-urlNative.onOpen((e) => {
-  console.log('OPEN!!!: ', e);
-  panelsNative.openBrowserval();
-});
+const filterBrowsers = ['Browserval', 'Choosy'];
 
 const App = () => {
+
+  const [ url, setUrl ] = useState<string>('');
+  const [ browserList, setBrowserList ] = useState<string[]>([]);
+  const [ activeIndex, setActiveIndex ] = useState<number>(0);
+
+  useEffect(() => {
+    urlNative.onOpen(({ browsers, url }) => {
+
+
+      setUrl(url);
+      setBrowserList(browsers.filter((b: string) => !filterBrowsers.find(f => b.includes(f))));
+      panelsNative.openBrowserval();
+    });
+  }, []);
+
+  const openUrl = useCallback((url: string, browser: string) => {
+    const pathArray = browser.split('/');
+    const appName = pathArray[pathArray.length - 1];
+    urlNative.openUrl(url, appName);
+    panelsNative.closeBrowserval();
+  }, []);
+
+  const mouseEntered = useCallback((index: number) => {
+    setActiveIndex(index);
+  }, []);
+
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
+    <View style={{
+      display: 'flex',
+      flexDirection: 'row',
+      backgroundColor: '#212121',
+      borderRadius: 15,
+      overflow: 'hidden',
+      width: 50 * browserList.length,
+    }}
+      onResponderMove={(e) => console.log(e)}
+    >
+      {browserList.map((browser, index) =>
+        <NSView style={{}} key={browser} onMouseEnter={() => mouseEntered(index)}>
+          <TouchableOpacity
+            onPress={() => openUrl(url, browser)}
+            style={ activeIndex === index ? { backgroundColor: '#1877dd' } : {}}
+          >
+            <Icon source={browser} style={{ width: 50, height: 50 }} />
+          </TouchableOpacity>
+        </NSView>
+      )}
+    </View>
   );
 };
-
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
 
 export default App;

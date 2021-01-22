@@ -12,4 +12,8 @@ export class URLNative {
     this.eventEmitter.addListener('onOpen', (event) => callback(event));
   }
 
+  openUrl(url: string, appName: string) {
+    this.url.openUrl(url, appName);
+  }
+
 }

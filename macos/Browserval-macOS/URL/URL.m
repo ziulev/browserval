@@ -3,6 +3,6 @@
 
 @interface RCT_EXTERN_MODULE(URLModule, RCTEventEmitter)
 
-//RCT_EXTERN_METHOD(register: (NSDictionary)hotkey withIdentifier:(NSString)identifier)
+RCT_EXTERN_METHOD(openUrl: (NSString)url withAppName:(NSString)appName)
 
 @end
