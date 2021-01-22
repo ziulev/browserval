@@ -12,13 +12,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   var browservalDimensionsHeight = 100
 
   func applicationDidFinishLaunching(_ aNotification: Notification) {
+    self.setupMenubar()
     self.setupBrowservalPanel()
-
-    statusBarItem = NSStatusBar.system.statusItem(withLength: CGFloat(60))
-    if let button = self.statusBarItem.button {
-      button.action = #selector(toggleBrowserval)
-      button.title = "BVAL"
-    }
+  }
+  
+  private func setupMenubar() {
+    let statusBar = NSStatusBar.system
+    self.statusBarItem = statusBar.statusItem(withLength: NSStatusItem.variableLength)
+    self.statusBarItem.button?.image = NSImage(named: NSImage.Name("TrayIcon"))
+    
+    let statusBarMenu = NSMenu(title: "Cap Status Bar Menu")
+    statusBarItem.menu = statusBarMenu
+    statusBarMenu.addItem(
+      withTitle: "Quit",
+      action: #selector(AppDelegate.Quitapp),
+      keyEquivalent: "q")
   }
   
   
@@ -88,5 +96,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     } else {
       self.openBrowserval()
     }
+  }
+  
+  @objc func Quitapp() {
+    NSApp.terminate(self)
   }
 }
